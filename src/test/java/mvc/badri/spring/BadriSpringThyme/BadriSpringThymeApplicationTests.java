@@ -11,6 +11,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
@@ -39,7 +41,7 @@ class BadriSpringThymeApplicationTests {
 		Corporate corp4=new Corporate(30091, "Oracle", new String[] {"java","sql"}, new String[] {"banglore","hyderabad"}, 5.2);
 		Corporate corp5=new Corporate(98123, "TCS", new String[] {"oracle","angular","spring"}, new String[] {"chennai","pune"}, 5.9);
 		
-		when(repo.findAll()).thenReturn(Stream.of(corp1,corp2,corp3,corp4).toList());
+		when(repo.findAll()).thenReturn(Stream.of(corp1,corp2,corp3,corp4).collect(Collectors.toList()));
 		
 		assertTrue(service.listing().size()==4);
 	}
@@ -52,7 +54,7 @@ class BadriSpringThymeApplicationTests {
 		Corporate corp4=new Corporate(30091, "Oracle", new String[] {"java","sql"}, new String[] {"banglore","hyderabad"}, 5.2);
 		Corporate corp5=new Corporate(98123, "TCS", new String[] {"oracle","angular","spring"}, new String[] {"chennai","pune"}, 5.9);
 		
-		when(repo.findAll()).thenReturn(Stream.of(corp1,corp2,corp3,corp4).toList());
+		when(repo.findAll()).thenReturn(Stream.of(corp1,corp2,corp3,corp4).collect(Collectors.toList()));
 		
 		assertNotNull(service.listing().get(1));
 	}
@@ -65,7 +67,7 @@ class BadriSpringThymeApplicationTests {
 		Corporate corp4=new Corporate(30091, "Oracle", new String[] {"java","sql"}, new String[] {"banglore","hyderabad"}, 5.2);
 		Corporate corp5=new Corporate(98123, "TCS", new String[] {"oracle","angular","spring"}, new String[] {"chennai","pune"}, 5.9);
 		
-		when(repo.findAll()).thenReturn(Stream.of(corp1,corp2,corp3,corp4).toList());
+		when(repo.findAll()).thenReturn(Stream.of(corp1,corp2,corp3,corp4).collect(Collectors.toList()));
 		
 		assertSame("Oracle",service.listing().get(3).getCorpName());
 	}
@@ -100,7 +102,7 @@ class BadriSpringThymeApplicationTests {
 		Corporate corp4=new Corporate(30091, "Oracle", new String[] {"java","sql"}, new String[] {"banglore","hyderabad"}, 5.2);
 		Corporate corp5=new Corporate(98123, "TCS", new String[] {"oracle","angular","spring"}, new String[] {"chennai","pune"}, 5.9);
 		
-		when(repo.findAll()).thenReturn(Stream.of(corp5,corp4).toList());
+		when(repo.findAll()).thenReturn(Stream.of(corp5,corp4).collect(Collectors.toList()));
 		
 		assertFalse(service.erasing(30091).equals("TCS has deleted"));
 	}
